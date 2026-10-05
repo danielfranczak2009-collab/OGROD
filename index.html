@@ -1,0 +1,3500 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title> </title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    touch-action: manipulation;
+}
+
+body {
+    background: #000;
+}
+
+
+/* =========================
+   TŁO
+========================= */
+
+.ogrod {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: fill;
+    z-index: 1;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+
+/* =========================
+   KWIATY
+========================= */
+
+.kwiat {
+    position: fixed;
+
+    width: clamp(28px, 4vw, 52px);
+    height: clamp(28px, 4vw, 52px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(25px, 3.5vw, 45px);
+
+    cursor: pointer;
+
+    z-index: 4;
+
+    transform: translate(-50%, 50%);
+
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
+
+    user-select: none;
+}
+
+.kwiat:hover {
+    transform:
+        translate(-50%, 50%)
+        scale(1.18);
+
+    filter:
+        drop-shadow(
+            0 0 10px
+            rgba(255,255,255,0.8)
+        );
+}
+
+
+/* =========================
+   POZYCJE KWIATÓW 1–20
+========================= */
+
+.kwiat[data-lekcja="1"] {
+    left: 8%;
+    bottom: 10%;
+}
+
+.kwiat[data-lekcja="2"] {
+    left: 18%;
+    bottom: 17%;
+}
+
+.kwiat[data-lekcja="3"] {
+    left: 29%;
+    bottom: 7%;
+}
+
+.kwiat[data-lekcja="4"] {
+    left: 40%;
+    bottom: 21%;
+}
+
+.kwiat[data-lekcja="5"] {
+    left: 51%;
+    bottom: 11%;
+}
+
+.kwiat[data-lekcja="6"] {
+    left: 61%;
+    bottom: 18%;
+}
+
+.kwiat[data-lekcja="7"] {
+    left: 72%;
+    bottom: 8%;
+}
+
+.kwiat[data-lekcja="8"] {
+    left: 82%;
+    bottom: 16%;
+}
+
+.kwiat[data-lekcja="9"] {
+    left: 91%;
+    bottom: 10%;
+}
+
+.kwiat[data-lekcja="10"] {
+    left: 13%;
+    bottom: 27%;
+}
+
+.kwiat[data-lekcja="11"] {
+    left: 34%;
+    bottom: 29%;
+}
+
+.kwiat[data-lekcja="12"] {
+    left: 56%;
+    bottom: 27%;
+}
+
+.kwiat[data-lekcja="13"] {
+    left: 75%;
+    bottom: 29%;
+}
+
+.kwiat[data-lekcja="14"] {
+    left: 89%;
+    bottom: 25%;
+}
+
+.kwiat[data-lekcja="15"] {
+    left: 24%;
+    bottom: 13%;
+}
+
+.kwiat[data-lekcja="16"] {
+    left: 46%;
+    bottom: 18%;
+}
+
+.kwiat[data-lekcja="17"] {
+    left: 68%;
+    bottom: 14%;
+}
+
+.kwiat[data-lekcja="18"] {
+    left: 84%;
+    bottom: 7%;
+}
+
+.kwiat[data-lekcja="19"] {
+    left: 31%;
+    bottom: 23%;
+}
+
+.kwiat[data-lekcja="20"] {
+    left: 65%;
+    bottom: 24%;
+}
+
+
+/* =========================
+   POZYCJE KWIATÓW 21–30
+========================= */
+
+.kwiat[data-lekcja="21"] {
+    left: 11%;
+    bottom: 14%;
+}
+
+.kwiat[data-lekcja="22"] {
+    left: 22%;
+    bottom: 8%;
+}
+
+.kwiat[data-lekcja="23"] {
+    left: 35%;
+    bottom: 13%;
+}
+
+.kwiat[data-lekcja="24"] {
+    left: 48%;
+    bottom: 8%;
+}
+
+.kwiat[data-lekcja="25"] {
+    left: 59%;
+    bottom: 13%;
+}
+
+.kwiat[data-lekcja="26"] {
+    left: 70%;
+    bottom: 7%;
+}
+
+.kwiat[data-lekcja="27"] {
+    left: 79%;
+    bottom: 13%;
+}
+
+.kwiat[data-lekcja="28"] {
+    left: 88%;
+    bottom: 8%;
+}
+
+.kwiat[data-lekcja="29"] {
+    left: 43%;
+    bottom: 16%;
+}
+
+.kwiat[data-lekcja="30"] {
+    left: 66%;
+    bottom: 17%;
+}
+
+
+/* =========================================================
+   MOTYLE 31–35
+========================================================= */
+
+.motyl {
+    position: fixed;
+
+    width: clamp(70px, 8vw, 105px);
+    height: clamp(70px, 8vw, 105px);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(52px, 6vw, 82px);
+
+    cursor: pointer;
+
+    z-index: 6;
+
+    transform: translate(-50%, 50%) rotate(0deg);
+
+    transition:
+        filter 0.3s ease,
+        opacity 0.3s ease;
+
+    user-select: none;
+}
+
+body.polanka .motyl {
+    display: flex;
+}
+
+
+/* =========================
+   POZYCJE MOTYLI
+========================= */
+
+.motyl[data-motyl="31"] {
+    left: 13%;
+    bottom: 24%;
+
+    font-size: clamp(68px, 7.5vw, 100px);
+
+    transform:
+        translate(-50%, 50%)
+        rotate(-24deg);
+}
+
+.motyl[data-motyl="32"] {
+    left: 34%;
+    bottom: 42%;
+
+    font-size: clamp(58px, 6.5vw, 88px);
+
+    transform:
+        translate(-50%, 50%)
+        rotate(17deg);
+}
+
+.motyl[data-motyl="33"] {
+    left: 57%;
+    bottom: 21%;
+
+    font-size: clamp(72px, 8vw, 105px);
+
+    transform:
+        translate(-50%, 50%)
+        rotate(-11deg);
+}
+
+.motyl[data-motyl="34"] {
+    left: 77%;
+    bottom: 43%;
+
+    font-size: clamp(61px, 7vw, 92px);
+
+    transform:
+        translate(-50%, 50%)
+        rotate(29deg);
+}
+
+.motyl[data-motyl="35"] {
+    left: 90%;
+    bottom: 18%;
+
+    font-size: clamp(76px, 8.5vw, 110px);
+
+    transform:
+        translate(-50%, 50%)
+        rotate(-19deg);
+}
+
+
+/* =========================
+   MOTYLE
+========================= */
+
+.motyl.specjalny {
+    cursor: pointer;
+}
+
+.motyl:hover {
+    filter:
+        drop-shadow(
+            0 0 14px
+            rgba(255,255,255,0.9)
+        );
+
+    scale: 1.12;
+}
+
+.motyl.nieaktywny {
+    opacity: 0.35;
+
+    filter:
+        grayscale(0.15)
+        drop-shadow(
+            0 0 4px
+            rgba(255,255,255,0.25)
+        );
+}
+
+.motyl.aktywny {
+    opacity: 1;
+
+    animation:
+        delikatneBujanie 3s ease-in-out infinite;
+}
+
+.motyl[data-motyl="31"].aktywny {
+    animation-name: bujanie31;
+}
+
+.motyl[data-motyl="32"].aktywny {
+    animation-name: bujanie32;
+}
+
+.motyl[data-motyl="33"].aktywny {
+    animation-name: bujanie33;
+}
+
+.motyl[data-motyl="34"].aktywny {
+    animation-name: bujanie34;
+}
+
+.motyl[data-motyl="35"].aktywny {
+    animation-name: bujanie35;
+}
+
+
+@keyframes bujanie31 {
+
+    0% {
+        transform:
+            translate(-50%, 50%)
+            rotate(-24deg)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translate(-50%, 50%)
+            rotate(-24deg)
+            translateY(-7px);
+    }
+
+    100% {
+        transform:
+            translate(-50%, 50%)
+            rotate(-24deg)
+            translateY(0);
+    }
+
+}
+
+
+@keyframes bujanie32 {
+
+    0% {
+        transform:
+            translate(-50%, 50%)
+            rotate(17deg)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translate(-50%, 50%)
+            rotate(17deg)
+            translateY(-7px);
+    }
+
+    100% {
+        transform:
+            translate(-50%, 50%)
+            rotate(17deg)
+            translateY(0);
+    }
+
+}
+
+
+@keyframes bujanie33 {
+
+    0% {
+        transform:
+            translate(-50%, 50%)
+            rotate(-11deg)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translate(-50%, 50%)
+            rotate(-11deg)
+            translateY(-7px);
+    }
+
+    100% {
+        transform:
+            translate(-50%, 50%)
+            rotate(-11deg)
+            translateY(0);
+    }
+
+}
+
+
+@keyframes bujanie34 {
+
+    0% {
+        transform:
+            translate(-50%, 50%)
+            rotate(29deg)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translate(-50%, 50%)
+            rotate(29deg)
+            translateY(-7px);
+    }
+
+    100% {
+        transform:
+            translate(-50%, 50%)
+            rotate(29deg)
+            translateY(0);
+    }
+
+}
+
+
+@keyframes bujanie35 {
+
+    0% {
+        transform:
+            translate(-50%, 50%)
+            rotate(-19deg)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translate(-50%, 50%)
+            rotate(-19deg)
+            translateY(-7px);
+    }
+
+    100% {
+        transform:
+            translate(-50%, 50%)
+            rotate(-19deg)
+            translateY(0);
+    }
+
+}
+
+
+.motyl.odsluchany {
+    opacity: 0.7;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,255,255,0.65)
+        );
+}
+
+
+/* =========================
+   FURTKA
+========================= */
+
+.furtka-przejscie {
+    position: fixed;
+
+    left: 54%;
+    top: 57%;
+
+    width: clamp(45px, 6vw, 75px);
+    height: clamp(45px, 6vw, 75px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 8;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+.klodka {
+    font-size:
+        clamp(35px, 5vw, 60px);
+
+    filter:
+        drop-shadow(
+            0 4px 6px
+            rgba(0,0,0,0.7)
+        );
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+
+/* =========================
+   STRZAŁKA
+========================= */
+
+.strzalka-przejscia {
+    position: fixed;
+
+    left: 54%;
+    top: 57%;
+
+    width: clamp(50px, 6vw, 80px);
+    height: clamp(50px, 6vw, 80px);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 8;
+
+    border: none;
+
+    background:
+        rgba(0,0,0,0.5);
+
+    border-radius: 50%;
+
+    color: white;
+
+    font-size:
+        clamp(30px, 4vw, 50px);
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 15px
+        rgba(0,0,0,0.5);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+
+    touch-action: manipulation;
+}
+
+.strzalka-przejscia:hover {
+    transform: scale(1.12);
+
+    background:
+        rgba(0,0,0,0.7);
+}
+
+.strzalka-przejscia.widoczna {
+    display: flex;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0,0,0,0.55);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 20;
+
+    padding: 20px;
+
+    overflow: hidden;
+}
+
+.modal.aktywny {
+    display: flex;
+}
+
+
+/* =========================
+   OKNO
+========================= */
+
+.okno {
+    width: min(650px, 92vw);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background:
+        rgba(255,255,255,0.97);
+
+    border-radius: 24px;
+
+    padding: 32px;
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,0.45);
+
+    text-align: center;
+
+    animation:
+        wejscie 0.3s ease;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+@keyframes wejscie {
+
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+.okno h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+
+    font-size:
+        clamp(24px, 4vw, 38px);
+}
+
+
+/* =========================
+   PUENTA
+========================= */
+
+.puenta {
+    font-size:
+        clamp(20px, 3vw, 28px);
+
+    line-height: 1.45;
+
+    margin: 25px 0;
+
+    font-weight: bold;
+}
+
+.puenta.zielone {
+    color: #2f7d32;
+}
+
+.puenta.niebieskie {
+    color: #2878a8;
+}
+
+.puenta.fioletowe {
+    color: #7548a8;
+}
+
+.puenta.czerwone {
+    color: #b23b3b;
+}
+
+.puenta.zolte {
+    color: #b88700;
+}
+
+
+/* =========================
+   PRZYCISKI
+========================= */
+
+.przyciski {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+.przycisk {
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 13px 24px;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+
+    touch-action: manipulation;
+}
+
+.przycisk:hover {
+    transform: scale(1.04);
+}
+
+.odtworz {
+    background: #3c8d40;
+    color: white;
+}
+
+.zamknij {
+    background: #ddd;
+    color: #333;
+}
+
+
+/* =========================
+   ODSŁUCHANE
+========================= */
+
+.odsluchane {
+    margin-top: 15px;
+
+    font-size: 14px;
+
+    color: #777;
+
+    display: none;
+}
+
+.odsluchane.widoczne {
+    display: block;
+}
+
+
+/* =========================
+   AUDIO
+========================= */
+
+audio {
+    display: none;
+}
+
+
+/* =========================
+   PRZEJŚCIE SCENERII
+========================= */
+
+.przejscie-scenerii {
+    position: fixed;
+
+    inset: 0;
+
+    background: black;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 100;
+
+    transition:
+        opacity 0.8s ease;
+}
+
+.przejscie-scenerii.aktywne {
+    opacity: 1;
+}
+
+
+/* =========================
+   POLANKA
+========================= */
+
+body.polanka .kwiat {
+    display: none !important;
+}
+
+
+/* =========================
+   FINAŁ
+========================= */
+
+body.final .motyl,
+body.final .strzalka-przejscia,
+body.final .furtka-przejscie {
+    display: none !important;
+}
+
+.final-wiadomosc {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 1vh 1.5vw;
+}
+
+body.final .final-wiadomosc {
+    display: flex;
+}
+
+.final-okno {
+    width: min(1100px, 97vw);
+
+    max-height: 98vh;
+
+    padding:
+        clamp(12px, 1.8vw, 22px)
+        clamp(14px, 2.2vw, 28px);
+
+    border-radius: 22px;
+
+    background:
+        rgba(0,0,0,0.45);
+
+    color: white;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,0.45);
+
+    backdrop-filter: blur(4px);
+
+    overflow: hidden;
+}
+
+.final-tekst {
+    width: 100%;
+
+    font-size:
+        clamp(12px, 1.45vw, 19px);
+
+    line-height: 1.22;
+
+    font-weight: normal;
+}
+
+.final-tekst p {
+    margin:
+        0 0
+        clamp(4px, 0.55vh, 8px);
+}
+
+.final-tekst p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   TELEFONY
+========================================================= */
+
+@media (max-width: 700px) {
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .kwiat {
+        width: 42px;
+        height: 42px;
+
+        font-size: 32px;
+
+        z-index: 7;
+    }
+
+    .motyl {
+        width: 58px;
+        height: 58px;
+
+        font-size: 43px;
+
+        z-index: 7;
+    }
+
+    .motyl.specjalny {
+        font-size: 51px;
+    }
+
+    .motyl[data-motyl="31"] {
+        font-size: 57px;
+    }
+
+    .motyl[data-motyl="32"] {
+        font-size: 48px;
+    }
+
+    .motyl[data-motyl="33"] {
+        font-size: 60px;
+    }
+
+    .motyl[data-motyl="34"] {
+        font-size: 51px;
+    }
+
+    .motyl[data-motyl="35"] {
+        font-size: 63px;
+    }
+
+    .furtka-przejscie {
+        left: 50%;
+        top: 55%;
+
+        width: 58px;
+        height: 58px;
+    }
+
+    .klodka {
+        font-size: 43px;
+    }
+
+    .strzalka-przejscia {
+        left: auto;
+        right: 18px;
+        bottom: 18px;
+        top: auto;
+
+        width: 62px;
+        height: 62px;
+
+        font-size: 38px;
+
+        z-index: 12;
+    }
+
+    .modal {
+        padding: 12px;
+    }
+
+    .okno {
+        width: 94vw;
+        max-height: 88vh;
+
+        padding: 22px 18px;
+
+        border-radius: 20px;
+    }
+
+    .okno h2 {
+        margin-bottom: 18px;
+
+        font-size: 25px;
+    }
+
+    .puenta {
+        margin: 18px 0;
+
+        font-size: 19px;
+        line-height: 1.4;
+    }
+
+    .przyciski {
+        gap: 10px;
+        margin-top: 18px;
+    }
+
+    .przycisk {
+        width: 100%;
+        min-height: 48px;
+
+        padding: 11px 18px;
+
+        font-size: 16px;
+    }
+
+    .final-wiadomosc {
+        padding: 0.8vh 1vw;
+    }
+
+    .final-okno {
+        width: 98vw;
+        max-height: 98.5vh;
+
+        padding: 10px 9px;
+
+        border-radius: 16px;
+    }
+
+    .final-tekst {
+        font-size: 11.2px;
+        line-height: 1.18;
+    }
+
+    .final-tekst p {
+        margin-bottom: 3px;
+    }
+
+}
+
+
+/* =========================================================
+   BARDZO MAŁE TELEFONY
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .kwiat {
+        width: 35px;
+        height: 35px;
+
+        font-size: 27px;
+    }
+
+    .motyl {
+        width: 50px;
+        height: 50px;
+
+        font-size: 38px;
+    }
+
+    .motyl[data-motyl="31"] {
+        font-size: 48px;
+    }
+
+    .motyl[data-motyl="32"] {
+        font-size: 41px;
+    }
+
+    .motyl[data-motyl="33"] {
+        font-size: 51px;
+    }
+
+    .motyl[data-motyl="34"] {
+        font-size: 43px;
+    }
+
+    .motyl[data-motyl="35"] {
+        font-size: 53px;
+    }
+
+    .strzalka-przejscia {
+        right: 14px;
+        bottom: 14px;
+
+        width: 56px;
+        height: 56px;
+
+        font-size: 34px;
+    }
+
+    .final-wiadomosc {
+        padding: 0.5vh 0.5vw;
+    }
+
+    .final-okno {
+        width: 99vw;
+        max-height: 99vh;
+
+        padding: 8px 7px;
+
+        border-radius: 16px;
+    }
+
+    .final-tekst {
+        font-size: 10.5px;
+        line-height: 1.15;
+    }
+
+    .final-tekst p {
+        margin-bottom: 2px;
+    }
+
+}
+
+
+/* =========================================================
+   TELEFON POZIOMO
+========================================================= */
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .kwiat {
+        width: 34px;
+        height: 34px;
+
+        font-size: 26px;
+    }
+
+    .motyl {
+        width: 48px;
+        height: 48px;
+
+        font-size: 37px;
+    }
+
+    .motyl[data-motyl="31"] {
+        font-size: 45px;
+    }
+
+    .motyl[data-motyl="32"] {
+        font-size: 39px;
+    }
+
+    .motyl[data-motyl="33"] {
+        font-size: 48px;
+    }
+
+    .motyl[data-motyl="34"] {
+        font-size: 41px;
+    }
+
+    .motyl[data-motyl="35"] {
+        font-size: 50px;
+    }
+
+    .strzalka-przejscia {
+        right: 16px;
+        bottom: 12px;
+
+        width: 54px;
+        height: 54px;
+
+        font-size: 32px;
+    }
+
+    .final-wiadomosc {
+        padding: 0.5vh 1vw;
+    }
+
+    .final-okno {
+        width: 98vw;
+        max-height: 99vh;
+
+        padding: 6px 14px;
+    }
+
+    .final-tekst {
+        font-size: 10.5px;
+        line-height: 1.12;
+    }
+
+    .final-tekst p {
+        margin-bottom: 2px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<img
+    src="./images/ogrodek.png"
+    class="ogrod"
+    id="tloScenerii"
+    alt=""
+>
+
+
+<!-- =========================================================
+     KWIATY 1–30
+========================================================= -->
+
+<div class="kwiat" data-lekcja="1" onclick="otworzLekcje(1)">🌸</div>
+<div class="kwiat" data-lekcja="2" onclick="otworzLekcje(2)">🌷</div>
+<div class="kwiat" data-lekcja="3" onclick="otworzLekcje(3)">🌼</div>
+<div class="kwiat" data-lekcja="4" onclick="otworzLekcje(4)">🌺</div>
+<div class="kwiat" data-lekcja="5" onclick="otworzLekcje(5)">🌻</div>
+<div class="kwiat" data-lekcja="6" onclick="otworzLekcje(6)">🌹</div>
+<div class="kwiat" data-lekcja="7" onclick="otworzLekcje(7)">🪻</div>
+<div class="kwiat" data-lekcja="8" onclick="otworzLekcje(8)">🌷</div>
+<div class="kwiat" data-lekcja="9" onclick="otworzLekcje(9)">🌸</div>
+<div class="kwiat" data-lekcja="10" onclick="otworzLekcje(10)">🌼</div>
+<div class="kwiat" data-lekcja="11" onclick="otworzLekcje(11)">🌺</div>
+<div class="kwiat" data-lekcja="12" onclick="otworzLekcje(12)">🌻</div>
+<div class="kwiat" data-lekcja="13" onclick="otworzLekcje(13)">🌹</div>
+<div class="kwiat" data-lekcja="14" onclick="otworzLekcje(14)">🪻</div>
+<div class="kwiat" data-lekcja="15" onclick="otworzLekcje(15)">🌷</div>
+<div class="kwiat" data-lekcja="16" onclick="otworzLekcje(16)">🌸</div>
+<div class="kwiat" data-lekcja="17" onclick="otworzLekcje(17)">🌼</div>
+<div class="kwiat" data-lekcja="18" onclick="otworzLekcje(18)">🌺</div>
+<div class="kwiat" data-lekcja="19" onclick="otworzLekcje(19)">🌻</div>
+<div class="kwiat" data-lekcja="20" onclick="otworzLekcje(20)">🌹</div>
+<div class="kwiat" data-lekcja="21" onclick="otworzLekcje(21)">🪷</div>
+<div class="kwiat" data-lekcja="22" onclick="otworzLekcje(22)">🌸</div>
+<div class="kwiat" data-lekcja="23" onclick="otworzLekcje(23)">🌷</div>
+<div class="kwiat" data-lekcja="24" onclick="otworzLekcje(24)">🌼</div>
+<div class="kwiat" data-lekcja="25" onclick="otworzLekcje(25)">🌺</div>
+<div class="kwiat" data-lekcja="26" onclick="otworzLekcje(26)">🌻</div>
+<div class="kwiat" data-lekcja="27" onclick="otworzLekcje(27)">🌹</div>
+<div class="kwiat" data-lekcja="28" onclick="otworzLekcje(28)">🪻</div>
+<div class="kwiat" data-lekcja="29" onclick="otworzLekcje(29)">🌷</div>
+<div class="kwiat" data-lekcja="30" onclick="otworzLekcje(30)">🌸</div>
+
+
+<!-- =========================================================
+     MOTYLE 31–35
+========================================================= -->
+
+<div class="motyl specjalny" data-motyl="31" onclick="otworzMotyla(31)">🦋</div>
+<div class="motyl specjalny" data-motyl="32" onclick="otworzMotyla(32)">🦋</div>
+<div class="motyl specjalny" data-motyl="33" onclick="otworzMotyla(33)">🦋</div>
+<div class="motyl specjalny" data-motyl="34" onclick="otworzMotyla(34)">🦋</div>
+<div class="motyl specjalny" data-motyl="35" onclick="otworzMotyla(35)">🦋</div>
+
+
+<!-- =========================================================
+     KŁÓDKA
+========================================================= -->
+
+<div class="furtka-przejscie" id="furtkaPrzejscie">
+    <div class="klodka" id="klodka">🔒</div>
+</div>
+
+
+<!-- =========================================================
+     STRZAŁKA
+========================================================= -->
+
+<button
+    class="strzalka-przejscia"
+    id="strzalkaPrzejscia"
+    onclick="przejdzDalej()"
+    aria-label="Przejdź dalej"
+>
+    →
+</button>
+
+
+<!-- =========================================================
+     MODAL
+========================================================= -->
+
+<div class="modal" id="modal">
+
+    <div class="okno">
+
+        <h2 id="tytulLekcji"></h2>
+
+        <div class="puenta" id="puentaLekcji"></div>
+
+        <div class="przyciski">
+
+            <button
+                class="przycisk odtworz"
+                onclick="odtworzLekcje()"
+            >
+                ▶ Posłuchaj rady
+            </button>
+
+            <button
+                class="przycisk zamknij"
+                onclick="zamknijLekcje()"
+            >
+                Zamknij
+            </button>
+
+        </div>
+
+        <div class="odsluchane" id="odsluchane">
+            ✓ Rada została odsłuchana
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     PRZEJŚCIE
+========================================================= -->
+
+<div
+    class="przejscie-scenerii"
+    id="przejscieScenerii"
+></div>
+
+
+<!-- =========================================================
+     FINAŁ
+========================================================= -->
+
+<div class="final-wiadomosc">
+
+    <div class="final-okno">
+
+        <div class="final-tekst">
+
+            <p>
+                Pewnie już domyśliłaś się, dlaczego to zrobiłem.
+                Zakładam również, że masz już dosyć mojego głosu po tych wszystkich „głosówkach”,
+                dlatego tutaj masz wersję pisaną...
+            </p>
+
+            <p>
+                Tak w sumie planowałem zrobić projekt, który miałby ucieszyć wiele osób.
+                Tylko że to było jeszcze przed tym, jak zacząłem się z Tobą przyjaźnić.
+                W pewnym momencie pomyślałem sobie:
+                „Po co robić projekt dla wielu osób, skoro mam obok siebie osobę wartą wiele?”
+            </p>
+
+            <p>
+                I właśnie wtedy cały pomysł trochę się zmienił.
+            </p>
+
+            <p>
+                Zamiast robić coś, co spodoba się wielu osobom,
+                chciałem zrobić coś, co będzie miało znaczenie przede wszystkim dla jednej.
+                Dla Ciebie.
+            </p>
+
+            <p>
+                Dlatego powstał ten cały ogród.
+                Kwiaty, lekcje, motyle, wszystkie te małe rzeczy,
+                które pewnie momentami wydawały Ci się kompletnie losowe.
+                Każda z nich miała jednak swoje miejsce.
+            </p>
+
+            <p>
+                Chciałem stworzyć coś, przez co choć na chwilę zatrzymasz się
+                i pomyślisz o sobie trochę inaczej.
+                Nie przez to, co ktoś Ci powiedział,
+                nie przez to, jak ktoś Cię ocenił,
+                tylko przez to, kim naprawdę jesteś.
+            </p>
+
+            <p>
+                I jeśli chociaż jedna rzecz z tych wszystkich lekcji została Ci w głowie,
+                jeśli chociaż jeden kwiat sprawił, że się uśmiechnęłaś
+                albo spojrzałaś na siebie odrobinę inaczej,
+                to dla mnie ten cały projekt już miał sens.
+            </p>
+
+            <p>
+                Bo koniec końców nie chodziło mi o stworzenie czegoś wielkiego.
+            </p>
+
+            <p>
+                Chodziło mi o stworzenie czegoś dla Ciebie.
+                Bo Ty też zasługujesz na miłość,
+                nawet jeśli czasami sama tego nie widzisz.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     AUDIO
+========================================================= -->
+
+<audio
+    id="audioLekcji"
+    preload="auto"
+></audio>
+
+<audio
+    id="muzykaTla"
+    src="./audio/muzyka.mp3"
+    loop
+    preload="auto"
+></audio>
+
+<audio
+    id="muzykaPolanka"
+    src="./audio/motylki.mp3"
+    loop
+    preload="auto"
+></audio>
+
+<audio
+    id="muzykaFinal"
+    src="./audio/final.mp3"
+    loop
+    preload="auto"
+></audio>
+
+
+<script>
+
+/* =========================================================
+   USTAWIENIA
+========================================================= */
+
+const GLOSNOSC_NORMALNA = 0.08;
+const GLOSNOSC_CICHA = 0.01;
+const GLOSNOSC_FINAL = 0.035;
+
+const CZAS_DOBY =
+    1000 * 60 * 60 * 24;
+
+
+/* =========================================================
+   TRYB TESTOWY
+========================================================= */
+
+const TRYB_TESTOWY = false;
+
+
+/* =========================================================
+   LEKCJE OGRODU 1–30
+========================================================= */
+
+const lekcje = {
+
+    1: {
+        tytul: "Porównywanie siebie",
+        audio: "./audio/porownywanie.m4a",
+        puenta: {
+            tekst: "Nie musisz wyglądać jak ktoś inny, żeby dobrze wyglądać.",
+            kolor: "zielone"
+        }
+    },
+
+    2: {
+        tytul: "Nie musisz być idealna",
+        audio: "./audio/Głos 002.m4a",
+        puenta: {
+            tekst: "Nie musisz być idealna, żeby od pierwszego spojrzenia zostać komuś w pamięci.",
+            kolor: "zielone"
+        }
+    },
+
+    3: {
+        tytul: "Więcej niż odbicie",
+        audio: "./audio/Głos 003.m4a",
+        puenta: {
+            tekst: "Lustro pokazuje twarz, ale nie pokazuje tego, jak pięknie potrafisz traktować ludzi.",
+            kolor: "zielone"
+        }
+    },
+
+    4: {
+        tytul: "To, co charakterystyczne",
+        audio: "./audio/Głos 004.m4a",
+        puenta: {
+            tekst: "To, co Tobie wydaje się niedoskonałością, dla kogoś może być częścią tego, co czyni Cię wyjątkową.",
+            kolor: "zielone"
+        }
+    },
+
+    5: {
+        tytul: "Piękno niewidoczne w lustrze",
+        audio: "./audio/Głos 005.m4a",
+        puenta: {
+            tekst: "Piękno, które nosisz w sobie, nie potrzebuje lustra, żeby istnieć.",
+            kolor: "zielone"
+        }
+    },
+
+    6: {
+        tytul: "Uśmiech",
+        audio: "./audio/Głos 006.m4a",
+        puenta: {
+            tekst: "Niektóre uśmiechy nie tylko wyglądają pięknie — sprawiają, że piękniejszy staje się cały dzień.",
+            kolor: "zielone"
+        }
+    },
+
+    7: {
+        tytul: "Nie musisz niczego udowadniać",
+        audio: "./audio/Głos 007.m4a",
+        puenta: {
+            tekst: "Nie musisz niczego udowadniać swoim wyglądem, żeby być wartościową dokładnie taką, jaka jesteś.",
+            kolor: "zielone"
+        }
+    },
+
+    8: {
+        tytul: "To nie jest konkurs",
+        audio: "./audio/Głos 008.m4a",
+        puenta: {
+            tekst: "Cudze piękno nigdy nie odbiera niczego Twojemu.",
+            kolor: "zielone"
+        }
+    },
+
+    9: {
+        tytul: "Gorszy dzień",
+        audio: "./audio/Głos 009.m4a",
+        puenta: {
+            tekst: "To, że dziś nie czujesz się piękna, nie sprawia, że przestałaś nią być.",
+            kolor: "zielone"
+        }
+    },
+
+    10: {
+        tytul: "Jedno zdjęcie",
+        audio: "./audio/Głos 010.m4a",
+        puenta: {
+            tekst: "Nie każde zdjęcie musi Ci się podobać, żeby osoba na nim była warta zachwytu.",
+            kolor: "zielone"
+        }
+    },
+
+    11: {
+        tytul: "Słychać człowieka",
+        audio: "./audio/Głos 011.m4a",
+        puenta: {
+            tekst: "Piękno nie zawsze widać — czasem można je usłyszeć w sposobie, w jaki ktoś mówi.",
+            kolor: "zielone"
+        }
+    },
+
+    12: {
+        tytul: "Twój śmiech",
+        audio: "./audio/Głos 012.m4a",
+        puenta: {
+            tekst: "Są ludzie, których śmiech zapamiętuje się nie dlatego, że jest idealny, tylko dlatego, że jest ich.",
+            kolor: "zielone"
+        }
+    },
+
+    13: {
+        tytul: "Wrażliwość",
+        audio: "./audio/Głos 013.m4a",
+        puenta: {
+            tekst: "Wrażliwość nie czyni Cię słabszą; pozwala Ci zauważać rzeczy, które dla innych pozostają niewidoczne.",
+            kolor: "zielone"
+        }
+    },
+
+    14: {
+        tytul: "Zauważyć czyjś ból",
+        audio: "./audio/Głos 014.m4a",
+        puenta: {
+            tekst: "Umiejętność zauważenia czyjegoś bólu jest jednym z najpiękniejszych rodzajów siły.",
+            kolor: "zielone"
+        }
+    },
+
+    15: {
+        tytul: "Kiedy nikt nie patrzy",
+        audio: "./audio/Głos 015.m4a",
+        puenta: {
+            tekst: "Najwięcej o człowieku mówi to, jak zachowuje się wtedy, gdy nikt nie patrzy.",
+            kolor: "zielone"
+        }
+    },
+
+    16: {
+        tytul: "Małe gesty",
+        audio: "./audio/Głos 016.m4a",
+        puenta: {
+            tekst: "Czasem najmniejsze gesty zostają w czyjejś pamięci najdłużej.",
+            kolor: "zielone"
+        }
+    },
+
+    17: {
+        tytul: "Nie musisz być potrzebna",
+        audio: "./audio/Głos 017.m4a",
+        puenta: {
+            tekst: "Twoja wartość nie zależy od tego, ilu ludzi akurat Cię potrzebuje.",
+            kolor: "zielone"
+        }
+    },
+
+    18: {
+        tytul: "Odpoczynek",
+        audio: "./audio/Głos 018.m4a",
+        puenta: {
+            tekst: "Nie musisz być produktywna, żeby zasługiwać na odpoczynek.",
+            kolor: "zielone"
+        }
+    },
+
+    19: {
+        tytul: "Nie najlepsza wersja",
+        audio: "./audio/Głos 019.m4a",
+        puenta: {
+            tekst: "Nie musisz być najlepszą wersją siebie każdego dnia — wystarczy, że jesteś sobą.",
+            kolor: "zielone"
+        }
+    },
+
+    20: {
+        tytul: "Błąd",
+        audio: "./audio/Głos 020.m4a",
+        puenta: {
+            tekst: "Błąd nie odbiera Ci wartości; pokazuje tylko, że jesteś człowiekiem, który się uczy.",
+            kolor: "zielone"
+        }
+    },
+
+    21: {
+        tytul: "Nie musisz wszystkim pasować",
+        audio: "./audio/Głos 021.m4a",
+        puenta: {
+            tekst: "Nie jesteś stworzona po to, żeby podobać się każdemu — wystarczy, że jesteś prawdziwa.",
+            kolor: "zielone"
+        }
+    },
+
+    22: {
+        tytul: "Twoje tempo",
+        audio: "./audio/Głos 022.m4a",
+        puenta: {
+            tekst: "To, że ktoś jest już gdzieś dalej, nie znaczy, że Ty jesteś spóźniona.",
+            kolor: "zielone"
+        }
+    },
+
+    23: {
+        tytul: "Zmiana",
+        audio: "./audio/Głos 023.m4a",
+        puenta: {
+            tekst: "Masz prawo się zmieniać — nie jesteś winna światu pozostania taką samą osobą.",
+            kolor: "zielone"
+        }
+    },
+
+    24: {
+        tytul: "Przeszłość",
+        audio: "./audio/Głos 024.m4a",
+        puenta: {
+            tekst: "To, co zrobiłaś kiedyś, jest częścią Twojej historii, ale nie musi być jej zakończeniem.",
+            kolor: "zielone"
+        }
+    },
+
+    25: {
+        tytul: "Przyszłość",
+        audio: "./audio/Głos 025.m4a",
+        puenta: {
+            tekst: "Nie musisz wiedzieć, co będzie za rok, żeby dzisiejszy dzień miał znaczenie.",
+            kolor: "zielone"
+        }
+    },
+
+    26: {
+        tytul: "Małe szczęścia",
+        audio: "./audio/Głos 026.m4a",
+        puenta: {
+            tekst: "Życie nie musi wydarzać się wielkimi rzeczami — czasem wystarczy muzyka, śmiech i chwila, w której jest Ci po prostu dobrze.",
+            kolor: "zielone"
+        }
+    },
+
+    27: {
+        tytul: "Samotny dzień",
+        audio: "./audio/Głos 027.m4a",
+        puenta: {
+            tekst: "Samotny wieczór nie oznacza samotnego życia.",
+            kolor: "zielone"
+        }
+    },
+
+    28: {
+        tytul: "Czyjaś opinia",
+        audio: "./audio/Głos 028.m4a",
+        puenta: {
+            tekst: "Czyjaś opinia o Tobie jest tylko czyjąś opinią — nie wyrokiem na Twój temat.",
+            kolor: "zielone"
+        }
+    },
+
+    29: {
+        tytul: "Odwaga",
+        audio: "./audio/Głos 029.m4a",
+        puenta: {
+            tekst: "Odwaga nie zawsze wygląda jak pewność siebie; czasem wygląda jak zrobienie czegoś mimo strachu.",
+            kolor: "zielone"
+        }
+    },
+
+    30: {
+        tytul: "Cieszenie się chwilą",
+        audio: "./audio/Głos 030.m4a",
+        puenta: {
+            tekst: "Nie czekaj, aż życie będzie idealne, żeby pozwolić sobie naprawdę się nim cieszyć.",
+            kolor: "zielone"
+        }
+    }
+
+};
+
+
+/* =========================================================
+   MOTYLE 31–35
+========================================================= */
+
+const motyle = {
+
+    31: {
+        tytul: "Nie musisz wiedzieć",
+        audio: "./audio/Głos 031.m4a",
+        puenta: {
+            tekst: "Nie musisz znać całej swojej drogi, żeby spokojnie zrobić kolejny krok.",
+            kolor: "niebieskie"
+        }
+    },
+
+    32: {
+        tytul: "Nie musisz wszystkiego dźwigać",
+        audio: "./audio/Głos 032.m4a",
+        puenta: {
+            tekst: "Nie musisz zawsze radzić sobie sama — możesz pozwolić komuś być obok.",
+            kolor: "niebieskie"
+        }
+    },
+
+    33: {
+        tytul: "To tylko jeden dzień",
+        audio: "./audio/Głos 033.m4a",
+        puenta: {
+            tekst: "Jeden gorszy dzień nie mówi Ci, jak będzie wyglądało całe Twoje życie.",
+            kolor: "niebieskie"
+        }
+    },
+
+    34: {
+        tytul: "Jeszcze tyle przed Tobą",
+        audio: "./audio/Głos 034.m4a",
+        puenta: {
+            tekst: "Nie znasz jeszcze wszystkich pięknych rzeczy, które czekają na Ciebie po drodze.",
+            kolor: "niebieskie"
+        }
+    },
+
+    35: {
+        tytul: "Po prostu bądź",
+        audio: "./audio/Głos 035.m4a",
+        puenta: {
+            tekst: "Nie musisz cały czas dokądś biec — czasami możesz po prostu pobyć.",
+            kolor: "niebieskie"
+        }
+    }
+
+};
+
+
+/* =========================================================
+   ELEMENTY
+========================================================= */
+
+const modal =
+    document.getElementById("modal");
+
+const tytulLekcji =
+    document.getElementById("tytulLekcji");
+
+const puentaLekcji =
+    document.getElementById("puentaLekcji");
+
+const audioLekcji =
+    document.getElementById("audioLekcji");
+
+const muzykaTla =
+    document.getElementById("muzykaTla");
+
+const muzykaPolanka =
+    document.getElementById("muzykaPolanka");
+
+const muzykaFinal =
+    document.getElementById("muzykaFinal");
+
+const odsluchane =
+    document.getElementById("odsluchane");
+
+const klodka =
+    document.getElementById("klodka");
+
+const furtkaPrzejscie =
+    document.getElementById("furtkaPrzejscie");
+
+const strzalkaPrzejscia =
+    document.getElementById("strzalkaPrzejscia");
+
+const tloScenerii =
+    document.getElementById("tloScenerii");
+
+const przejscieScenerii =
+    document.getElementById("przejscieScenerii");
+
+
+let aktualnaLekcja = null;
+let aktualnyMotyl = null;
+
+let muzykaUruchomiona = false;
+let muzykaPolankaUruchomiona = false;
+let muzykaFinalUruchomiona = false;
+
+let jestNaPolance = false;
+let jestWFinale = false;
+
+
+/* =========================================================
+   MUZYKA
+========================================================= */
+
+function uruchomMuzyke() {
+
+    if (jestNaPolance || jestWFinale) {
+        return;
+    }
+
+    muzykaTla.volume =
+        GLOSNOSC_NORMALNA;
+
+    muzykaTla
+        .play()
+        .then(() => {
+
+            muzykaUruchomiona = true;
+
+        })
+        .catch(() => {
+
+            muzykaUruchomiona = false;
+
+        });
+
+}
+
+
+function uruchomMuzykePolanki() {
+
+    if (jestWFinale) {
+        return;
+    }
+
+    muzykaPolanka.volume =
+        GLOSNOSC_NORMALNA;
+
+    muzykaPolanka
+        .play()
+        .then(() => {
+
+            muzykaPolankaUruchomiona = true;
+
+        })
+        .catch(() => {
+
+            muzykaPolankaUruchomiona = false;
+
+        });
+
+}
+
+
+function uruchomMuzykeFinalu() {
+
+    if (!jestWFinale) {
+        return;
+    }
+
+    muzykaFinal.volume =
+        GLOSNOSC_FINAL;
+
+    muzykaFinal
+        .play()
+        .then(() => {
+
+            muzykaFinalUruchomiona = true;
+
+        })
+        .catch(() => {
+
+            muzykaFinalUruchomiona = false;
+
+        });
+
+}
+
+
+document.addEventListener(
+    "click",
+    function() {
+
+        if (jestWFinale) {
+            uruchomMuzykeFinalu();
+            return;
+        }
+
+        if (jestNaPolance) {
+
+            uruchomMuzykePolanki();
+
+        } else {
+
+            uruchomMuzyke();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ODSŁUCHANIA
+========================================================= */
+
+function czyOdsuchana(numer) {
+
+    return localStorage.getItem(
+        "ogrod_lekcja_" + numer
+    ) === "odsluchana";
+
+}
+
+
+function czyMotylOdsuchany(numer) {
+
+    return localStorage.getItem(
+        "polanka_motyl_" + numer
+    ) === "odsluchany";
+
+}
+
+
+/* =========================================================
+   LOSOWANIE PAR
+========================================================= */
+
+function pobierzParyKwiatow() {
+
+    const zapis =
+        localStorage.getItem(
+            "ogrod_losowe_pary"
+        );
+
+
+    if (zapis) {
+
+        try {
+
+            const pary =
+                JSON.parse(zapis);
+
+            if (
+                Array.isArray(pary) &&
+                pary.length === 15
+            ) {
+
+                return pary;
+
+            }
+
+        } catch (error) {
+
+            console.log(
+                "Nie udało się odczytać par kwiatów."
+            );
+
+        }
+
+    }
+
+
+    const numery =
+        Array.from(
+            { length: 30 },
+            (_, index) => index + 1
+        );
+
+
+    for (
+        let i = numery.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+        [
+            numery[i],
+            numery[j]
+        ] = [
+            numery[j],
+            numery[i]
+        ];
+
+    }
+
+
+    const pary = [];
+
+    for (
+        let i = 0;
+        i < numery.length;
+        i += 2
+    ) {
+
+        pary.push([
+            numery[i],
+            numery[i + 1]
+        ]);
+
+    }
+
+
+    localStorage.setItem(
+        "ogrod_losowe_pary",
+        JSON.stringify(pary)
+    );
+
+
+    return pary;
+
+}
+
+
+/* =========================================================
+   ETAP OGRODU
+========================================================= */
+
+function pobierzAktualnyEtapOgrodu() {
+
+    const pary =
+        pobierzParyKwiatow();
+
+
+    for (
+        let etap = 0;
+        etap < pary.length;
+        etap++
+    ) {
+
+        const para =
+            pary[etap];
+
+
+        const ukonczony =
+            para.every(
+                numer =>
+                    czyOdsuchana(numer)
+            );
+
+
+        if (!ukonczony) {
+
+            return etap + 1;
+
+        }
+
+    }
+
+
+    return 15;
+
+}
+
+
+/* =========================================================
+   CZAS UKOŃCZENIA ETAPU
+========================================================= */
+
+function pobierzCzasUkonczeniaEtapu(etap) {
+
+    const klucz =
+        "ogrod_etap_" +
+        etap +
+        "_czas";
+
+
+    const zapis =
+        localStorage.getItem(
+            klucz
+        );
+
+
+    if (!zapis) {
+        return null;
+    }
+
+
+    const czas =
+        Number(zapis);
+
+
+    if (!Number.isFinite(czas)) {
+        return null;
+    }
+
+
+    return czas;
+
+}
+
+
+/* =========================================================
+   ZAPIS UKOŃCZENIA ETAPU
+========================================================= */
+
+function zapiszUkonczenieEtapu(etap) {
+
+    const klucz =
+        "ogrod_etap_" +
+        etap +
+        "_czas";
+
+
+    if (
+        !localStorage.getItem(klucz)
+    ) {
+
+        localStorage.setItem(
+            klucz,
+            String(Date.now())
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CZY ETAP JEST DOSTĘPNY
+========================================================= */
+
+function czyEtapDostepny(etap) {
+
+    if (TRYB_TESTOWY) {
+        return true;
+    }
+
+    if (etap === 1) {
+        return true;
+    }
+
+
+    const poprzedniCzas =
+        pobierzCzasUkonczeniaEtapu(
+            etap - 1
+        );
+
+
+    if (!poprzedniCzas) {
+        return false;
+    }
+
+
+    return (
+        Date.now() - poprzedniCzas
+        >= CZAS_DOBY
+    );
+
+}
+
+
+/* =========================================================
+   CZY MINĘŁO 24H OD ETAPU
+========================================================= */
+
+function czyMinelo24hOdEtapu(etap) {
+
+    if (TRYB_TESTOWY) {
+        return true;
+    }
+
+    const czas =
+        pobierzCzasUkonczeniaEtapu(
+            etap
+        );
+
+
+    if (!czas) {
+        return false;
+    }
+
+
+    return (
+        Date.now() - czas
+        >= CZAS_DOBY
+    );
+
+}
+
+
+/* =========================================================
+   SPRAWDZENIE I ZAPIS ETAPÓW
+========================================================= */
+
+function aktualizujEtapyOgrodu() {
+
+    const pary =
+        pobierzParyKwiatow();
+
+
+    for (
+        let etap = 1;
+        etap <= pary.length;
+        etap++
+    ) {
+
+        const para =
+            pary[etap - 1];
+
+
+        const komplet =
+            para.every(
+                numer =>
+                    czyOdsuchana(numer)
+            );
+
+
+        if (komplet) {
+
+            zapiszUkonczenieEtapu(
+                etap
+            );
+
+        } else {
+
+            break;
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   POKAZYWANIE KWIATÓW — KUMULOWANIE
+========================================================= */
+
+function pokazDostepneKwiaty() {
+
+    const kwiaty =
+        document.querySelectorAll(
+            ".kwiat"
+        );
+
+
+    aktualizujEtapyOgrodu();
+
+
+    const pary =
+        pobierzParyKwiatow();
+
+
+    let etapDostepny =
+        1;
+
+
+    for (
+        let etap = 1;
+        etap <= 15;
+        etap++
+    ) {
+
+        if (
+            czyEtapDostepny(etap)
+        ) {
+
+            etapDostepny =
+                etap;
+
+        } else {
+
+            break;
+
+        }
+
+    }
+
+
+    /*
+        WAŻNE:
+
+        Kwiaty NIE ZNIKAJĄ po odsłuchaniu.
+
+        Pokazujemy wszystkie kwiaty z:
+        - ukończonych etapów
+        - aktualnie dostępnego etapu
+
+        Dzięki temu:
+        dzień 1  -> 2 kwiaty
+        dzień 2  -> 4 kwiaty
+        dzień 3  -> 6 kwiatów
+        ...
+        dzień 15 -> 30 kwiatów
+    */
+
+    kwiaty.forEach(
+        kwiat => {
+
+            const numer =
+                Number(
+                    kwiat.dataset.lekcja
+                );
+
+
+            let powinienBycWidoczny =
+                false;
+
+
+            for (
+                let etap = 1;
+                etap <= etapDostepny;
+                etap++
+            ) {
+
+                const para =
+                    pary[etap - 1] || [];
+
+
+                if (
+                    para.includes(numer)
+                ) {
+
+                    powinienBycWidoczny =
+                        true;
+
+                    break;
+
+                }
+
+            }
+
+
+            if (powinienBycWidoczny) {
+
+                kwiat.style.display =
+                    "flex";
+
+            } else {
+
+                kwiat.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   WSZYSTKIE 30
+========================================================= */
+
+function czyWszystkieLekcjeOdsuchane() {
+
+    for (
+        let numer = 1;
+        numer <= 30;
+        numer++
+    ) {
+
+        if (!czyOdsuchana(numer)) {
+            return false;
+        }
+
+    }
+
+    return true;
+
+}
+
+
+/* =========================================================
+   ODSŁUCHANIE KWIATU
+========================================================= */
+
+function zapiszOdsuchanie(numer) {
+
+    localStorage.setItem(
+        "ogrod_lekcja_" + numer,
+        "odsluchana"
+    );
+
+
+    aktualizujEtapyOgrodu();
+
+
+    pokazDostepneKwiaty();
+
+
+    sprawdzFurtke();
+
+}
+
+
+/* =========================================================
+   ODSŁUCHANIE MOTYLA
+========================================================= */
+
+function zapiszOdsuchanieMotyla(numer) {
+
+    localStorage.setItem(
+        "polanka_motyl_" + numer,
+        "odsluchany"
+    );
+
+
+    localStorage.setItem(
+        "polanka_motyl_" +
+        numer +
+        "_czas",
+        String(Date.now())
+    );
+
+
+    aktualizujMotyle();
+
+}
+
+
+/* =========================================================
+   CZAS MOTYLA
+========================================================= */
+
+function pobierzCzasMotyla(numer) {
+
+    const zapis =
+        localStorage.getItem(
+            "polanka_motyl_" +
+            numer +
+            "_czas"
+        );
+
+
+    if (!zapis) {
+        return null;
+    }
+
+
+    const czas =
+        Number(zapis);
+
+
+    if (!Number.isFinite(czas)) {
+        return null;
+    }
+
+
+    return czas;
+
+}
+
+
+/* =========================================================
+   CZY MOTYL DOSTĘPNY
+========================================================= */
+
+function czyMotylDostepny(numer) {
+
+    if (TRYB_TESTOWY) {
+        return true;
+    }
+
+    if (numer === 31) {
+        return true;
+    }
+
+
+    if (
+        !czyMotylOdsuchany(numer - 1)
+    ) {
+
+        return false;
+
+    }
+
+
+    const czasPoprzedniego =
+        pobierzCzasMotyla(
+            numer - 1
+        );
+
+
+    if (!czasPoprzedniego) {
+        return false;
+    }
+
+
+    return (
+        Date.now() - czasPoprzedniego
+        >= CZAS_DOBY
+    );
+
+}
+
+
+/* =========================================================
+   CZY MINĘŁO 24H OD MOTYLA
+========================================================= */
+
+function czyMinelo24hOdMotyla(numer) {
+
+    if (TRYB_TESTOWY) {
+        return true;
+    }
+
+    const czas =
+        pobierzCzasMotyla(numer);
+
+
+    if (!czas) {
+        return false;
+    }
+
+
+    return (
+        Date.now() - czas
+        >= CZAS_DOBY
+    );
+
+}
+
+
+/* =========================================================
+   AKTUALIZACJA MOTYLI
+========================================================= */
+
+function aktualizujMotyle() {
+
+    if (!jestNaPolance) {
+        return;
+    }
+
+
+    const motyleElementy =
+        document.querySelectorAll(
+            ".motyl"
+        );
+
+
+    motyleElementy.forEach(
+        motyl => {
+
+            const numer =
+                Number(
+                    motyl.dataset.motyl
+                );
+
+
+            motyl.classList.remove(
+                "aktywny"
+            );
+
+            motyl.classList.remove(
+                "nieaktywny"
+            );
+
+            motyl.classList.remove(
+                "odsluchany"
+            );
+
+
+            if (
+                czyMotylOdsuchany(numer)
+            ) {
+
+                motyl.classList.add(
+                    "odsluchany"
+                );
+
+            }
+
+
+            if (
+                czyMotylDostepny(numer)
+            ) {
+
+                motyl.classList.add(
+                    "aktywny"
+                );
+
+            } else {
+
+                motyl.classList.add(
+                    "nieaktywny"
+                );
+
+            }
+
+        }
+    );
+
+
+    aktualizujStrzalkeFinalu();
+
+}
+
+
+/* =========================================================
+   STRZAŁKA DO FINAŁU
+========================================================= */
+
+function aktualizujStrzalkeFinalu() {
+
+    if (!jestNaPolance) {
+        return;
+    }
+
+
+    if (
+        !czyMotylOdsuchany(35)
+    ) {
+
+        strzalkaPrzejscia.classList.remove(
+            "widoczna"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        czyMinelo24hOdMotyla(35)
+    ) {
+
+        strzalkaPrzejscia.classList.add(
+            "widoczna"
+        );
+
+    } else {
+
+        strzalkaPrzejscia.classList.remove(
+            "widoczna"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FURTKA
+========================================================= */
+
+function sprawdzFurtke() {
+
+    if (jestNaPolance || jestWFinale) {
+        return;
+    }
+
+
+    if (
+        !czyWszystkieLekcjeOdsuchane()
+    ) {
+
+        zablokujFurtke();
+
+        return;
+
+    }
+
+
+    aktualizujEtapyOgrodu();
+
+
+    if (
+        !czyMinelo24hOdEtapu(15)
+    ) {
+
+        zablokujFurtke();
+
+        return;
+
+    }
+
+
+    odblokujFurtke();
+
+}
+
+
+/* =========================================================
+   ZABLOKOWANA FURTKA
+========================================================= */
+
+function zablokujFurtke() {
+
+    if (jestNaPolance) {
+        return;
+    }
+
+
+    klodka.style.opacity =
+        "1";
+
+    klodka.style.transform =
+        "scale(1)";
+
+
+    furtkaPrzejscie.style.opacity =
+        "1";
+
+
+    furtkaPrzejscie.style.pointerEvents =
+        "none";
+
+
+    strzalkaPrzejscia.classList.remove(
+        "widoczna"
+    );
+
+}
+
+
+/* =========================================================
+   ODBLOKOWANA FURTKA
+========================================================= */
+
+function odblokujFurtke() {
+
+    if (jestNaPolance) {
+        return;
+    }
+
+
+    klodka.style.opacity =
+        "0";
+
+    klodka.style.transform =
+        "scale(0.5)";
+
+
+    setTimeout(
+        function() {
+
+            if (
+                jestNaPolance ||
+                jestWFinale
+            ) {
+
+                return;
+
+            }
+
+
+            furtkaPrzejscie.style.opacity =
+                "0";
+
+            furtkaPrzejscie.style.pointerEvents =
+                "none";
+
+
+            strzalkaPrzejscia.classList.add(
+                "widoczna"
+            );
+
+        },
+        500
+    );
+
+}
+
+
+/* =========================================================
+   OTWIERANIE LEKCJI
+========================================================= */
+
+function otworzLekcje(numer) {
+
+    const lekcja =
+        lekcje[numer];
+
+
+    if (!lekcja) {
+        return;
+    }
+
+
+    if (!czyOdsuchana(numer)) {
+
+        const pary =
+            pobierzParyKwiatow();
+
+
+        let dostepny =
+            false;
+
+
+        for (
+            let etap = 1;
+            etap <= 15;
+            etap++
+        ) {
+
+            const para =
+                pary[etap - 1] || [];
+
+
+            if (
+                para.includes(numer) &&
+                czyEtapDostepny(etap)
+            ) {
+
+                dostepny =
+                    true;
+
+                break;
+
+            }
+
+        }
+
+
+        if (!dostepny) {
+            return;
+        }
+
+    }
+
+
+    uruchomMuzyke();
+
+
+    aktualnaLekcja =
+        numer;
+
+    aktualnyMotyl =
+        null;
+
+
+    tytulLekcji.textContent =
+        lekcja.tytul;
+
+
+    puentaLekcji.textContent =
+        lekcja.puenta.tekst;
+
+
+    puentaLekcji.className =
+        "puenta " +
+        lekcja.puenta.kolor;
+
+
+    audioLekcji.src =
+        lekcja.audio;
+
+
+    audioLekcji.load();
+
+
+    if (
+        czyOdsuchana(numer)
+    ) {
+
+        odsluchane.classList.add(
+            "widoczne"
+        );
+
+    } else {
+
+        odsluchane.classList.remove(
+            "widoczne"
+        );
+
+    }
+
+
+    modal.classList.add(
+        "aktywny"
+    );
+
+}
+
+
+/* =========================================================
+   OTWIERANIE MOTYLA
+========================================================= */
+
+function otworzMotyla(numer) {
+
+    const motyl =
+        motyle[numer];
+
+
+    if (!motyl) {
+        return;
+    }
+
+
+    if (!jestNaPolance) {
+        return;
+    }
+
+
+    if (
+        !czyMotylDostepny(numer) &&
+        !czyMotylOdsuchany(numer)
+    ) {
+
+        return;
+
+    }
+
+
+    uruchomMuzykePolanki();
+
+
+    aktualnaLekcja =
+        null;
+
+    aktualnyMotyl =
+        numer;
+
+
+    tytulLekcji.textContent =
+        motyl.tytul;
+
+
+    puentaLekcji.textContent =
+        motyl.puenta.tekst;
+
+
+    puentaLekcji.className =
+        "puenta " +
+        motyl.puenta.kolor;
+
+
+    audioLekcji.src =
+        motyl.audio;
+
+
+    audioLekcji.load();
+
+
+    if (
+        czyMotylOdsuchany(numer)
+    ) {
+
+        odsluchane.classList.add(
+            "widoczne"
+        );
+
+    } else {
+
+        odsluchane.classList.remove(
+            "widoczne"
+        );
+
+    }
+
+
+    modal.classList.add(
+        "aktywny"
+    );
+
+}
+
+
+/* =========================================================
+   ODTWARZANIE RADY
+========================================================= */
+
+function odtworzLekcje() {
+
+    if (
+        !aktualnaLekcja &&
+        !aktualnyMotyl
+    ) {
+
+        return;
+
+    }
+
+
+    if (jestNaPolance) {
+
+        muzykaPolanka.volume =
+            GLOSNOSC_CICHA;
+
+    } else {
+
+        muzykaTla.volume =
+            GLOSNOSC_CICHA;
+
+    }
+
+
+    audioLekcji.currentTime =
+        0;
+
+
+    audioLekcji
+        .play()
+        .then(() => {
+
+            if (aktualnaLekcja) {
+
+                zapiszOdsuchanie(
+                    aktualnaLekcja
+                );
+
+
+                odsluchane.classList.add(
+                    "widoczne"
+                );
+
+
+                return;
+
+            }
+
+
+            if (aktualnyMotyl) {
+
+                zapiszOdsuchanieMotyla(
+                    aktualnyMotyl
+                );
+
+
+                odsluchane.classList.add(
+                    "widoczne"
+                );
+
+            }
+
+        })
+        .catch(error => {
+
+            console.log(
+                "Nie udało się odtworzyć nagrania:",
+                error
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   KONIEC AUDIO
+========================================================= */
+
+audioLekcji.addEventListener(
+    "ended",
+    function() {
+
+        if (jestNaPolance) {
+
+            muzykaPolanka.volume =
+                GLOSNOSC_NORMALNA;
+
+        } else {
+
+            muzykaTla.volume =
+                GLOSNOSC_NORMALNA;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ZAMYKANIE
+========================================================= */
+
+function zamknijLekcje() {
+
+    audioLekcji.pause();
+
+    audioLekcji.currentTime =
+        0;
+
+
+    if (jestNaPolance) {
+
+        muzykaPolanka.volume =
+            GLOSNOSC_NORMALNA;
+
+    } else {
+
+        muzykaTla.volume =
+            GLOSNOSC_NORMALNA;
+
+    }
+
+
+    modal.classList.remove(
+        "aktywny"
+    );
+
+}
+
+
+modal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === modal
+        ) {
+
+            zamknijLekcje();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape" &&
+            modal.classList.contains(
+                "aktywny"
+            )
+        ) {
+
+            zamknijLekcje();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PRZEJŚCIE NA POLANKĘ
+========================================================= */
+
+function przejdzNaPolanke() {
+
+    if (
+        !czyWszystkieLekcjeOdsuchane()
+    ) {
+
+        return;
+
+    }
+
+
+    aktualizujEtapyOgrodu();
+
+
+    if (
+        !czyMinelo24hOdEtapu(15)
+    ) {
+
+        return;
+
+    }
+
+
+    if (jestNaPolance) {
+        return;
+    }
+
+
+    jestNaPolance =
+        true;
+
+
+    strzalkaPrzejscia.classList.remove(
+        "widoczna"
+    );
+
+
+    przejscieScenerii.classList.add(
+        "aktywne"
+    );
+
+
+    muzykaTla.pause();
+
+    muzykaTla.currentTime =
+        0;
+
+    muzykaUruchomiona =
+        false;
+
+
+    setTimeout(
+        function() {
+
+            tloScenerii.src =
+                "./images/polanka.png";
+
+
+            document
+                .querySelectorAll(".kwiat")
+                .forEach(
+                    kwiat => {
+
+                        kwiat.style.display =
+                            "none";
+
+                    }
+                );
+
+
+            furtkaPrzejscie.style.display =
+                "none";
+
+
+            document.body.classList.add(
+                "polanka"
+            );
+
+
+            aktualizujMotyle();
+
+
+            uruchomMuzykePolanki();
+
+
+            setTimeout(
+                function() {
+
+                    przejscieScenerii.classList.remove(
+                        "aktywne"
+                    );
+
+                },
+                100
+            );
+
+        },
+        800
+    );
+
+}
+
+
+/* =========================================================
+   PRZEJŚCIE DO FINAŁU
+========================================================= */
+
+function przejdzDoFinalu() {
+
+    if (!jestNaPolance) {
+        return;
+    }
+
+
+    if (
+        !czyMotylOdsuchany(35)
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !czyMinelo24hOdMotyla(35)
+    ) {
+
+        return;
+
+    }
+
+
+    jestWFinale =
+        true;
+
+    jestNaPolance =
+        false;
+
+
+    strzalkaPrzejscia.classList.remove(
+        "widoczna"
+    );
+
+
+    modal.classList.remove(
+        "aktywny"
+    );
+
+
+    audioLekcji.pause();
+
+
+    muzykaPolanka.pause();
+
+    muzykaPolanka.currentTime =
+        0;
+
+    muzykaPolankaUruchomiona =
+        false;
+
+
+    przejscieScenerii.classList.add(
+        "aktywne"
+    );
+
+
+    setTimeout(
+        function() {
+
+            document.body.classList.remove(
+                "polanka"
+            );
+
+            document.body.classList.add(
+                "final"
+            );
+
+
+            tloScenerii.src =
+                "./images/polanka.png";
+
+
+            uruchomMuzykeFinalu();
+
+
+            setTimeout(
+                function() {
+
+                    przejscieScenerii.classList.remove(
+                        "aktywne"
+                    );
+
+                },
+                100
+            );
+
+        },
+        800
+    );
+
+}
+
+
+/* =========================================================
+   PRZEJŚCIE DALEJ
+========================================================= */
+
+function przejdzDalej() {
+
+    if (jestWFinale) {
+        return;
+    }
+
+
+    if (jestNaPolance) {
+
+        przejdzDoFinalu();
+
+        return;
+
+    }
+
+
+    przejdzNaPolanke();
+
+}
+
+
+/* =========================================================
+   AUTOMATYCZNE SPRAWDZANIE
+========================================================= */
+
+setInterval(
+    function() {
+
+        if (
+            !jestNaPolance &&
+            !jestWFinale
+        ) {
+
+            aktualizujEtapyOgrodu();
+
+            pokazDostepneKwiaty();
+
+            sprawdzFurtke();
+
+        }
+
+
+        if (jestNaPolance) {
+
+            aktualizujMotyle();
+
+        }
+
+    },
+    1000
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+aktualizujEtapyOgrodu();
+
+pokazDostepneKwiaty();
+
+sprawdzFurtke();
+
+aktualizujMotyle();
+
+
+</script>
+
+</body>
+</html>

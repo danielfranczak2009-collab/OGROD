@@ -46,81 +46,37 @@ body {
 
 
 /* =========================
-   TIMER
+   LICZNIK POSTĘPU
 ========================= */
 
-.timer-panel {
+.licznik-postepu {
     position: fixed;
-
+    top: clamp(12px, 2vh, 22px);
     left: 50%;
-    top: 4%;
-
     transform: translateX(-50%);
 
     z-index: 10;
 
-    min-width: min(330px, 88vw);
+    padding: 9px 18px;
+    border-radius: 999px;
 
-    padding:
-        10px
-        18px;
-
-    border-radius: 18px;
-
-    background:
-        rgba(0, 0, 0, 0.48);
-
+    background: rgba(0,0,0,0.52);
     color: white;
 
+    font-size: clamp(13px, 1.5vw, 18px);
+    font-weight: bold;
     text-align: center;
 
-    box-shadow:
-        0 5px 20px
-        rgba(0,0,0,0.3);
-
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
     backdrop-filter: blur(4px);
 
-    opacity: 0;
-
+    display: none;
     pointer-events: none;
-
-    transition:
-        opacity 0.35s ease,
-        transform 0.35s ease;
+    white-space: nowrap;
 }
 
-.timer-panel.widoczny {
-    opacity: 1;
-}
-
-.timer-napis {
-    font-size:
-        clamp(13px, 1.8vw, 18px);
-
-    margin-bottom: 4px;
-
-    opacity: 0.95;
-}
-
-.timer-czas {
-    font-size:
-        clamp(22px, 3.2vw, 34px);
-
-    font-weight: bold;
-
-    letter-spacing: 1px;
-
-    font-variant-numeric: tabular-nums;
-}
-
-.timer-panel.polanka-timer {
-    background:
-        rgba(30, 70, 110, 0.55);
-}
-
-.timer-panel.final-timer {
-    background:
-        rgba(70, 45, 90, 0.55);
+.licznik-postepu.widoczny {
+    display: block;
 }
 
 
@@ -1043,16 +999,11 @@ body.final .final-wiadomosc {
         overflow: hidden;
     }
 
-    .timer-panel {
-        top: 2.5%;
-
-        min-width: 250px;
-
-        padding:
-            8px
-            14px;
-
-        border-radius: 15px;
+    .licznik-postepu {
+        top: 10px;
+        max-width: 92vw;
+        padding: 8px 13px;
+        font-size: 13px;
     }
 
     .kwiat {
@@ -1194,14 +1145,6 @@ body.final .final-wiadomosc {
 
 @media (max-width: 390px) {
 
-    .timer-panel {
-        min-width: 225px;
-
-        padding:
-            7px
-            11px;
-    }
-
     .kwiat {
         width: 35px;
         height: 35px;
@@ -1276,14 +1219,6 @@ body.final .final-wiadomosc {
 ========================================================= */
 
 @media (max-height: 500px) and (orientation: landscape) {
-
-    .timer-panel {
-        top: 2%;
-
-        padding:
-            5px
-            12px;
-    }
 
     .kwiat {
         width: 34px;
@@ -1364,29 +1299,7 @@ body.final .final-wiadomosc {
     alt=""
 >
 
-
-<!-- =========================================================
-     TIMER
-========================================================= -->
-
-<div
-    class="timer-panel"
-    id="timerPanel"
->
-
-    <div
-        class="timer-napis"
-        id="timerNapis"
-    ></div>
-
-    <div
-        class="timer-czas"
-        id="timerCzas"
-    >
-        24:00:00
-    </div>
-
-</div>
+<div id="licznikPostepu" class="licznik-postepu" aria-live="polite"></div>
 
 
 <!-- =========================================================
@@ -1618,7 +1531,7 @@ body.final .final-wiadomosc {
 ========================================================= */
 
 const GLOSNOSC_NORMALNA = 0.08;
-const GLOSNOSC_CICHA = 0.01;
+const GLOSNOSC_CICHA = 0.002;
 const GLOSNOSC_FINAL = 0.035;
 
 const CZAS_DOBY =
@@ -2005,17 +1918,11 @@ const strzalkaPrzejscia =
 const tloScenerii =
     document.getElementById("tloScenerii");
 
+const licznikPostepu =
+    document.getElementById("licznikPostepu");
+
 const przejscieScenerii =
     document.getElementById("przejscieScenerii");
-
-const timerPanel =
-    document.getElementById("timerPanel");
-
-const timerNapis =
-    document.getElementById("timerNapis");
-
-const timerCzas =
-    document.getElementById("timerCzas");
 
 
 let aktualnaLekcja = null;
@@ -2504,6 +2411,23 @@ function pokazDostepneKwiaty() {
     }
 
 
+    /*
+        WAŻNE:
+
+        Kwiaty NIE ZNIKAJĄ po odsłuchaniu.
+
+        Pokazujemy wszystkie kwiaty z:
+        - ukończonych etapów
+        - aktualnie dostępnego etapu
+
+        Dzięki temu:
+        dzień 1  -> 2 kwiaty
+        dzień 2  -> 4 kwiaty
+        dzień 3  -> 6 kwiatów
+        ...
+        dzień 15 -> 30 kwiatów
+    */
+
     kwiaty.forEach(
         kwiat => {
 
@@ -2560,6 +2484,200 @@ function pokazDostepneKwiaty() {
 
 
 /* =========================================================
+   LICZNIK DO NASTĘPNYCH KWIATÓW / POLANKI
+========================================================= */
+
+function formatujCzas(ms) {
+
+    const pozostalo =
+        Math.max(0, ms);
+
+    const sekundy =
+        Math.floor(pozostalo / 1000);
+
+    const godziny =
+        Math.floor(sekundy / 3600);
+
+    const minuty =
+        Math.floor((sekundy % 3600) / 60);
+
+    const sekundyNaKoncu =
+        sekundy % 60;
+
+    return (
+        String(godziny).padStart(2, "0") +
+        ":" +
+        String(minuty).padStart(2, "0") +
+        ":" +
+        String(sekundyNaKoncu).padStart(2, "0")
+    );
+
+}
+
+
+function pokazLicznik(tekst) {
+
+    licznikPostepu.textContent =
+        tekst;
+
+    licznikPostepu.classList.add(
+        "widoczny"
+    );
+
+}
+
+
+function ukryjLicznik() {
+
+    licznikPostepu.classList.remove(
+        "widoczny"
+    );
+
+}
+
+
+function aktualizujLicznikPostepu() {
+
+    if (
+        jestNaPolance ||
+        jestWFinale
+    ) {
+
+        ukryjLicznik();
+        return;
+
+    }
+
+
+    const pary =
+        pobierzParyKwiatow();
+
+
+    /*
+        Szukamy pierwszego etapu,
+        którego dwa kwiaty nie są jeszcze
+        odsłuchane.
+    */
+
+    let pierwszyNieukonczony =
+        null;
+
+    for (
+        let etap = 1;
+        etap <= 15;
+        etap++
+    ) {
+
+        const para =
+            pary[etap - 1] || [];
+
+        const komplet =
+            para.length === 2 &&
+            para.every(
+                numer => czyOdsuchana(numer)
+            );
+
+        if (!komplet) {
+
+            pierwszyNieukonczony =
+                etap;
+
+            break;
+
+        }
+
+    }
+
+
+    /* Wszystkie 30 kwiatów odsłuchane:
+       odliczamy 24h do polany. */
+
+    if (pierwszyNieukonczony === null) {
+
+        const czas =
+            pobierzCzasUkonczeniaEtapu(15);
+
+        if (!czas) {
+            ukryjLicznik();
+            return;
+        }
+
+        const pozostalo =
+            CZAS_DOBY -
+            (Date.now() - czas);
+
+        if (pozostalo > 0) {
+
+            pokazLicznik(
+                "Do polany za: " +
+                formatujCzas(pozostalo)
+            );
+
+        } else {
+
+            ukryjLicznik();
+
+        }
+
+        return;
+
+    }
+
+
+    /* Pierwsza para jest dostępna od razu.
+       Dopóki nie odsłuchano obu, nie ma
+       jeszcze odliczania do kolejnej pary. */
+
+    if (
+        pierwszyNieukonczony === 1
+    ) {
+
+        ukryjLicznik();
+        return;
+
+    }
+
+
+    /* Jeśli poprzednia para została już
+       odsłuchana, ale kolejna jeszcze czeka,
+       pokazujemy dokładnie pozostałe 24h. */
+
+    const czasPoprzedniegoEtapu =
+        pobierzCzasUkonczeniaEtapu(
+            pierwszyNieukonczony - 1
+        );
+
+
+    if (!czasPoprzedniegoEtapu) {
+
+        ukryjLicznik();
+        return;
+
+    }
+
+
+    const pozostalo =
+        CZAS_DOBY -
+        (Date.now() - czasPoprzedniegoEtapu);
+
+
+    if (pozostalo > 0) {
+
+        pokazLicznik(
+            "Następne kwiaty za: " +
+            formatujCzas(pozostalo)
+        );
+
+    } else {
+
+        ukryjLicznik();
+
+    }
+
+}
+
+
+/* =========================================================
    WSZYSTKIE 30
 ========================================================= */
 
@@ -2596,11 +2714,13 @@ function zapiszOdsuchanie(numer) {
 
     aktualizujEtapyOgrodu();
 
+
     pokazDostepneKwiaty();
+
 
     sprawdzFurtke();
 
-    aktualizujTimer();
+    aktualizujLicznikPostepu();
 
 }
 
@@ -2626,8 +2746,6 @@ function zapiszOdsuchanieMotyla(numer) {
 
 
     aktualizujMotyle();
-
-    aktualizujTimer();
 
 }
 
@@ -2900,7 +3018,7 @@ function sprawdzFurtke() {
 
 function zablokujFurtke() {
 
-    if (jestNaPolanka) {
+    if (jestNaPolance) {
         return;
     }
 
@@ -2915,8 +3033,10 @@ function zablokujFurtke() {
     furtkaPrzejscie.style.opacity =
         "1";
 
+
     furtkaPrzejscie.style.pointerEvents =
         "none";
+
 
     strzalkaPrzejscia.classList.remove(
         "widoczna"
@@ -2931,7 +3051,7 @@ function zablokujFurtke() {
 
 function odblokujFurtke() {
 
-    if (jestNaPolanka) {
+    if (jestNaPolance) {
         return;
     }
 
@@ -2947,7 +3067,7 @@ function odblokujFurtke() {
         function() {
 
             if (
-                jestNaPolanka ||
+                jestNaPolance ||
                 jestWFinale
             ) {
 
@@ -2970,423 +3090,6 @@ function odblokujFurtke() {
         },
         500
     );
-
-}
-
-
-/* =========================================================
-   TIMER — FORMAT
-========================================================= */
-
-function formatujCzas(ms) {
-
-    if (ms < 0) {
-        ms = 0;
-    }
-
-
-    const sekundy =
-        Math.floor(ms / 1000);
-
-
-    const godziny =
-        Math.floor(
-            sekundy / 3600
-        );
-
-
-    const minuty =
-        Math.floor(
-            (sekundy % 3600) / 60
-        );
-
-
-    const pozostaleSekundy =
-        sekundy % 60;
-
-
-    return (
-        String(godziny).padStart(2, "0") +
-        ":" +
-        String(minuty).padStart(2, "0") +
-        ":" +
-        String(pozostaleSekundy).padStart(2, "0")
-    );
-
-}
-
-
-/* =========================================================
-   TIMER — POKAŻ
-========================================================= */
-
-function pokazTimer(napis, pozostalyCzas, klasa = "") {
-
-    timerPanel.classList.remove(
-        "polanka-timer"
-    );
-
-    timerPanel.classList.remove(
-        "final-timer"
-    );
-
-
-    if (klasa) {
-
-        timerPanel.classList.add(
-            klasa
-        );
-
-    }
-
-
-    timerNapis.textContent =
-        napis;
-
-
-    timerCzas.textContent =
-        formatujCzas(
-            pozostalyCzas
-        );
-
-
-    timerPanel.classList.add(
-        "widoczny"
-    );
-
-}
-
-
-/* =========================================================
-   TIMER — UKRYJ
-========================================================= */
-
-function ukryjTimer() {
-
-    timerPanel.classList.remove(
-        "widoczny"
-    );
-
-}
-
-
-/* =========================================================
-   TIMER — OGRÓD
-========================================================= */
-
-function aktualizujTimerOgrodu() {
-
-    if (jestNaPolance || jestWFinale) {
-        return false;
-    }
-
-
-    aktualizujEtapyOgrodu();
-
-
-    /*
-        Jeżeli wszystkie 30 kwiatów zostały
-        odsłuchane, odliczamy 24h do polanki.
-    */
-
-    if (
-        czyWszystkieLekcjeOdsuchane()
-    ) {
-
-        const czas =
-            pobierzCzasUkonczeniaEtapu(15);
-
-
-        if (!czas) {
-
-            ukryjTimer();
-
-            return true;
-
-        }
-
-
-        const pozostalo =
-            CZAS_DOBY -
-            (Date.now() - czas);
-
-
-        if (pozostalo > 0) {
-
-            pokazTimer(
-                "Polanka będzie dostępna za:",
-                pozostalo
-            );
-
-        } else {
-
-            ukryjTimer();
-
-        }
-
-
-        return true;
-
-    }
-
-
-    /*
-        Szukamy pierwszego nieukończonego etapu.
-    */
-
-    const pary =
-        pobierzParyKwiatow();
-
-
-    for (
-        let etap = 1;
-        etap <= 15;
-        etap++
-    ) {
-
-        const para =
-            pary[etap - 1];
-
-
-        const komplet =
-            para.every(
-                numer =>
-                    czyOdsuchana(numer)
-            );
-
-
-        if (komplet) {
-            continue;
-        }
-
-
-        /*
-            Etap 1 jest dostępny od razu.
-            Nie ma jeszcze żadnego czekania.
-        */
-
-        if (etap === 1) {
-
-            ukryjTimer();
-
-            return true;
-
-        }
-
-
-        /*
-            Jeżeli poprzedni etap został ukończony,
-            odliczamy od jego zakończenia.
-        */
-
-        const poprzedniCzas =
-            pobierzCzasUkonczeniaEtapu(
-                etap - 1
-            );
-
-
-        if (!poprzedniCzas) {
-
-            ukryjTimer();
-
-            return true;
-
-        }
-
-
-        const pozostalo =
-            CZAS_DOBY -
-            (Date.now() - poprzedniCzas);
-
-
-        if (pozostalo > 0) {
-
-            pokazTimer(
-                "Kolejne kwiaty pojawią się za:",
-                pozostalo
-            );
-
-        } else {
-
-            ukryjTimer();
-
-        }
-
-
-        return true;
-
-    }
-
-
-    ukryjTimer();
-
-    return true;
-
-}
-
-
-/* =========================================================
-   TIMER — POLANKA
-========================================================= */
-
-function aktualizujTimerPolanki() {
-
-    if (!jestNaPolance) {
-        return false;
-    }
-
-
-    /*
-        Jeżeli motyl 35 został odsłuchany,
-        odliczamy 24h do finału.
-    */
-
-    if (
-        czyMotylOdsuchany(35)
-    ) {
-
-        const czas =
-            pobierzCzasMotyla(35);
-
-
-        if (!czas) {
-
-            ukryjTimer();
-
-            return true;
-
-        }
-
-
-        const pozostalo =
-            CZAS_DOBY -
-            (Date.now() - czas);
-
-
-        if (pozostalo > 0) {
-
-            pokazTimer(
-                "Finał będzie dostępny za:",
-                pozostalo,
-                "final-timer"
-            );
-
-        } else {
-
-            ukryjTimer();
-
-        }
-
-
-        return true;
-
-    }
-
-
-    /*
-        Szukamy pierwszego nieodsłuchanego motyla.
-    */
-
-    for (
-        let numer = 31;
-        numer <= 35;
-        numer++
-    ) {
-
-        if (
-            czyMotylOdsuchany(numer)
-        ) {
-
-            continue;
-
-        }
-
-
-        /*
-            Motyl 31 jest dostępny od razu.
-        */
-
-        if (numer === 31) {
-
-            ukryjTimer();
-
-            return true;
-
-        }
-
-
-        const czasPoprzedniego =
-            pobierzCzasMotyla(
-                numer - 1
-            );
-
-
-        if (!czasPoprzedniego) {
-
-            ukryjTimer();
-
-            return true;
-
-        }
-
-
-        const pozostalo =
-            CZAS_DOBY -
-            (Date.now() - czasPoprzedniego);
-
-
-        if (pozostalo > 0) {
-
-            pokazTimer(
-                "Następny motyl pojawi się za:",
-                pozostalo,
-                "polanka-timer"
-            );
-
-        } else {
-
-            ukryjTimer();
-
-        }
-
-
-        return true;
-
-    }
-
-
-    ukryjTimer();
-
-    return true;
-
-}
-
-
-/* =========================================================
-   TIMER — GŁÓWNA FUNKCJA
-========================================================= */
-
-function aktualizujTimer() {
-
-    if (jestWFinale) {
-
-        ukryjTimer();
-
-        return;
-
-    }
-
-
-    if (jestNaPolance) {
-
-        aktualizujTimerPolanki();
-
-        return;
-
-    }
-
-
-    aktualizujTimerOgrodu();
 
 }
 
@@ -3789,14 +3492,10 @@ function przejdzNaPolanke() {
     }
 
 
-    jestNaPolanka =
-        true;
-
     jestNaPolance =
         true;
 
-
-    ukryjTimer();
+    ukryjLicznik();
 
 
     strzalkaPrzejscia.classList.remove(
@@ -3847,8 +3546,6 @@ function przejdzNaPolanke() {
 
 
             aktualizujMotyle();
-
-            aktualizujTimer();
 
 
             uruchomMuzykePolanki();
@@ -3907,8 +3604,7 @@ function przejdzDoFinalu() {
     jestNaPolance =
         false;
 
-
-    ukryjTimer();
+    ukryjLicznik();
 
 
     strzalkaPrzejscia.classList.remove(
@@ -4018,6 +3714,8 @@ setInterval(
 
             sprawdzFurtke();
 
+            aktualizujLicznikPostepu();
+
         }
 
 
@@ -4026,9 +3724,6 @@ setInterval(
             aktualizujMotyle();
 
         }
-
-
-        aktualizujTimer();
 
     },
     1000
@@ -4045,9 +3740,9 @@ pokazDostepneKwiaty();
 
 sprawdzFurtke();
 
-aktualizujMotyle();
+aktualizujLicznikPostepu();
 
-aktualizujTimer();
+aktualizujMotyle();
 
 
 </script>
